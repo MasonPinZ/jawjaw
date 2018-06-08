@@ -117,4 +117,22 @@ public class Word implements Cloneable {
 	public Word clone() {
 		return new Word( wordid, Lang.valueOf(lang.toString()), lemma, pron, POS.valueOf(pos.toString()) );
 	}
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Word))  return false;
+        Word w = (Word) obj;
+        return w.getWordid() == wordid;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(wordid);
+    }
 }
