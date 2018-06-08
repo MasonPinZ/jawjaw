@@ -211,6 +211,54 @@ public class WordDAO {
 		return word;
 	}
 	
+    /**
+     * Find words by synset
+     * @param synsetId
+     * @return word list
+     */
+    public static List<Word> findWordsBySynset(String synsetId) {
+        String key = synsetId + "-words";
+        if ( Configuration.getInstance().useCache() ) {
+            List<Word> cachedObj = cache.get(key);
+            if ( cachedObj != null ) return clone(cachedObj);
+        }
+        
+        List<Word> words = new ArrayList<>(1);
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            ps = SQL.getInstance().getPreparedStatement( SQLQuery.FIND_WORDS_BY_SYNSET );
+            synchronized (ps) {
+                ps.setString(1, synsetId);
+                rs = ps.executeQuery();
+                while ( rs.next() ) {
+                    words.add(rsToObject(rs));
+                }
+                rs.close();
+                rs = null;
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if ( rs != null ) rs.close();
+            } catch ( SQLException e ) {
+                // no op;
+            }
+        }
+    
+        if (Configuration.getInstance().useCache()) {
+            if (cache.size() >= Configuration.getInstance().getMaxCacheSize()) {
+                cache.remove( cache.keySet().iterator().next() );
+            }
+            if (words.size() > 0) cache.put( key, clone(words) );
+        }
+        
+        return words;
+    }
+    
 	private static Word rsToObject( ResultSet rs ) throws SQLException {
 		Word word = new Word(
 			rs.getInt(1),	

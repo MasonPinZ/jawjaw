@@ -15,6 +15,8 @@
  */
 package edu.cmu.lti.jawjaw.db;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import junit.framework.Assert;
@@ -36,6 +38,7 @@ public class WordDAOTest {
 	private String word2b = "natural language processing";
 	private String word2c = "Natural Language Processing";
 	private int wordid = 201821;
+	private String synset1 = "02267060-v";
 		
 	/**
 	 * Test method for {@link edu.cmu.lti.jawjaw.db.WordDAO#findWordsByLemma(java.lang.String)}.
@@ -68,6 +71,13 @@ public class WordDAOTest {
 	public void testFindWordByWordid() {
 		Word word = WordDAO.findWordByWordid( wordid );
 		Assert.assertTrue( word != null );
+	}
+	
+	@Test
+	public void testFindWordsBySynset() {
+	    List<Word> words = WordDAO.findWordsBySynset(synset1);
+	    System.out.println(words);
+	    assertTrue(words.size() > 0);
 	}
 
 }
