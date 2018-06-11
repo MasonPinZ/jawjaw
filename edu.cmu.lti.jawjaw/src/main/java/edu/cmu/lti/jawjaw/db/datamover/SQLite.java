@@ -24,13 +24,13 @@ package edu.cmu.lti.jawjaw.db.datamover;
 public class SQLite extends Database {
 
 	/**
-	 * Abstract method to process a database type. Sometimes database types are
+	 * Abstrct method to process a database type. Sometimes database types are
 	 * not reported exactly as they need to be for proper syntax. This method
 	 * corrects the database type and size.
 	 * 
 	 * @param type
 	 *            The type reported
-	 * @param size
+	 * @param i
 	 *            The size of this column
 	 * @return The properly formatted type, for this database
 	 */
