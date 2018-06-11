@@ -223,7 +223,7 @@ public class WordDAO {
             if ( cachedObj != null ) return clone(cachedObj);
         }
         
-        List<Word> words = new ArrayList<>(1);
+        List<Word> words = new ArrayList<Word>(1);
         
         PreparedStatement ps = null;
         ResultSet rs = null;
