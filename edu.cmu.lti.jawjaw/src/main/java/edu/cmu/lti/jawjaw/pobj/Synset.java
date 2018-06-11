@@ -129,4 +129,25 @@ public class Synset implements Cloneable {
 	public Synset clone() {
 		return new Synset( synset, POS.valueOf(pos.toString()), name, src );
 	}
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Synset))  return false;
+        Synset s = (Synset) obj;
+        if (synset == null) {
+            return s.synset == null;
+        }
+        return synset.equals(s.synset);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return synset==null ? "null".hashCode() : synset.hashCode();
+    }
 }

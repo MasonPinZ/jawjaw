@@ -110,4 +110,26 @@ public class SynsetDef implements Cloneable {
 		return new SynsetDef( synset, Lang.valueOf(lang.toString()), def, sid );
 	}
 	
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof SynsetDef))  return false;
+        SynsetDef sd = (SynsetDef) obj;
+        String id = synset==null ? "null" : synset;
+        String oid = sd.synset==null ? "null" : sd.synset;
+        return id.equals(oid) && (lang == sd.lang);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int shash = synset==null ? "null".hashCode() : synset.hashCode();
+        int lhash = lang==null ? "null".hashCode() : lang.hashCode();
+        return shash + lhash;
+    }
 }

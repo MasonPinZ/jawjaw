@@ -110,4 +110,29 @@ public class Synlink implements Cloneable {
 		return new Synlink( synset1, synset2, Link.valueOf(link.toString()), src );
 	}
 	
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Synlink))  return false;
+        Synlink sl = (Synlink) obj;
+        String id1 = synset1==null ? "null" : synset1;
+        String id2 = synset2==null ? "null" : synset2;
+        String oid1 = sl.synset1==null ? "null" : sl.synset1;
+        String oid2 = sl.synset2==null ? "null" : sl.synset2;
+        return id1.equals(oid1) && id2.equals(oid2) && (link == sl.link);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int shash1 = synset1==null ? "null".hashCode() : synset1.hashCode();
+        int shash2 = synset2==null ? "null".hashCode() : synset2.hashCode();
+        int lhash = link==null ? "null".hashCode() : link.hashCode();
+        return shash1 + shash2 + lhash;
+    }
 }

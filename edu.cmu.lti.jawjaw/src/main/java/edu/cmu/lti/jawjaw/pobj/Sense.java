@@ -162,4 +162,25 @@ public class Sense implements Cloneable {
 		return new Sense( synset, wordid, Lang.valueOf(lang.toString()), rank, lexid, freq, src );
 	}
 	
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Synset))  return false;
+        Sense s = (Sense) obj;
+        String id = synset == null ? "null" : synset;
+        String oid = s.synset == null ? "null" : s.synset;
+        return id.equals(oid) && wordid == s.wordid;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int shash = synset==null ? "null".hashCode() : synset.hashCode();
+        return shash + Integer.hashCode(wordid);
+    }
 }
